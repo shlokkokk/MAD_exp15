@@ -1,0 +1,3 @@
+package com.example.it_canteen;
+import android.content.Intent; import android.os.Bundle; import android.widget.Button; import android.widget.TextView; import androidx.appcompat.app.AppCompatActivity;
+public class review_order extends AppCompatActivity { TextView review; Button btnnext; @Override protected void onCreate(Bundle b){super.onCreate(b);setContentView(R.layout.review_order);review=findViewById(R.id.review);btnnext=findViewById(R.id.btn_reviewfinal);String count=getIntent().getStringExtra("finalorder");review.setText(count==null?"":count);btnnext.setOnClickListener(v->startActivity(new Intent(this,details.class)));} }
