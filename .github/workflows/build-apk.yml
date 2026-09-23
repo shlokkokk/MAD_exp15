@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
 permissions:
-  contents: read
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,8 +16,18 @@ jobs:
           java-version: '17'
       - name: Build debug APK
         run: gradle --no-daemon assembleDebug
-      - name: Upload APK
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: MAD-exp15-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
+      - name: Publish APK release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: MAD Exp 15 — Canteen App v1.0.0
+          body: |
+            Android food ordering application for MAD Experiment 15.
+            Built from the supplied lab-manual flow with splash screen, canteen menu, cart/review, customer details, payment popup, and order submission.
+          files: app/build/outputs/apk/debug/app-debug.apk
+          make_latest: true
